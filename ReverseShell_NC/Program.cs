@@ -147,7 +147,7 @@ namespace NC_test
                             }
                         }
 
-                        if (cmd_text.Contains("exit"))
+                        if (cmd_text.Equals("exit"))
                         {
                             process.Close();
                             break;
