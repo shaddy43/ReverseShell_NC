@@ -56,7 +56,7 @@ namespace NC_test
                 //IPAddress ipAddr = ipHost.AddressList[0];
                 //IPEndPoint localEndPoint = new IPEndPoint(ipAddr, 11111);
 
-                String ip = "172.20.16.43";
+                String ip = "YOUR.IP.ADDRESS.HERE";
                 IPAddress ipAddr = IPAddress.Parse(ip);
                 IPEndPoint localEndPoint = new IPEndPoint(ipAddr, 4444);
 
