@@ -105,13 +105,12 @@ namespace NC_test
                         Process process;
 
                         processInfo = new ProcessStartInfo("cmd.exe");
-                        //processInfo.Arguments = "/k cd \""+ cwd + "\" ";
-                        processInfo.Arguments = "/k ";
+                        processInfo.Arguments = "/k ";  // /k runs the commands in same instance
                         processInfo.CreateNoWindow = false;
                         processInfo.UseShellExecute = false;
                         processInfo.RedirectStandardInput = true;
                         processInfo.RedirectStandardOutput = true;
-                        processInfo.WorkingDirectory = cwd;
+                        processInfo.WorkingDirectory = cwd;  // changing working directory to whatever path i go into
                         processInfo.RedirectStandardError = true;
                         process = Process.Start(processInfo);
 
@@ -129,11 +128,11 @@ namespace NC_test
                             output_string = process.StandardOutput.ReadToEnd();
                             output_string_error = process.StandardError.ReadToEnd();
 
+                            //getting the path from the last line and replacing > with \ for accessible path
                             var lastLine = output_string.Split('\n').Last();
                             lastLine = lastLine.Replace('>', '\\');
-
                             cwd = Path.GetFullPath(lastLine);
-                            Console.WriteLine(cwd);
+                            //Console.WriteLine(cwd);
 
                             process.WaitForExit();
 
@@ -154,9 +153,10 @@ namespace NC_test
                             break;
                         }
 
+                        //removing first line for double path listings
                         output_string = output_string.Remove(output_string.LastIndexOf(Environment.NewLine));
-                        //Console.WriteLine("OUTPUT: \n" + output_string);
 
+                        //sending output or error
                         byte[] send_output = Encoding.ASCII.GetBytes(output_string);
                         int send_output_bytes = sender.Send(send_output);
                         output_string = "";
